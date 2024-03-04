@@ -149,6 +149,14 @@ th>a{
     font-weight: 600;
 }
 
+th>a::after{
+    content: ''; 
+    position: absolute; /* Абсолютное позиционирование */
+    left: 20px; bottom: -20px; /* Положение треугольника */
+    border: 10px solid transparent; /* Прозрачные границы */
+    border-top: 10px solid green; /* Добавляем треугольник */
+}
+
 td{
     padding: 8px 0;
     text-align: center;

@@ -174,3 +174,30 @@ document.addEventListener("DOMContentLoaded", function() {
         sortAscending = !sortAscending;
     });
 });
+
+
+// Живой поиск
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('search-input');
+    const tableRows = document.querySelectorAll('tbody tr');
+
+    searchInput.addEventListener('input', function () {
+        const searchText = searchInput.value.toLowerCase().trim();
+
+        tableRows.forEach(function (row) {
+            const columns = row.querySelectorAll('td');
+            let rowText = '';
+
+            columns.forEach(function (column) {
+                rowText += column.textContent.toLowerCase().trim() + ' ';
+            });
+
+            if (rowText.indexOf(searchText) === -1) {
+                row.style.display = 'none';
+            } else {
+                row.style.display = '';
+            }
+        });
+    });
+});
+

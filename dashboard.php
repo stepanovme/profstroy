@@ -40,7 +40,7 @@
 
             <div class="search">
                 <img src="/assets/icons/search.svg" alt="">
-                <input type="text" name="" id="" placeholder="Поиск">
+                <input type="text" name="search-input" id="search-input" placeholder="Поиск">
                 <select name="" id="">
                     <option value="" selected disabled>Тип</option>
                 </select>
