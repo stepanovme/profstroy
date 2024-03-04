@@ -88,9 +88,9 @@
                     echo "<tr>";
                     echo "<td>".$row['ANUMB']."</td>";
                     echo "<td>".$row['ANAME']."</td>";
-                    echo "<td>".$row['CLPRV']."</td>";
-                    echo "<td>".$row['CLPR1']."</td>";
-                    echo "<td>".$row['CLPR2']."</td>";
+                    echo "<td>".($row['CLPRV'] != '0.000000' ? number_format($row['CLPRV'], 2, ',', '') : '0')."</td>";
+                    echo "<td>".($row['CLPR1'] != '0.000000' ? number_format($row['CLPR1'], 2, ',', '') : '0')."</td>";
+                    echo "<td>".($row['CLPR2'] != '0.000000' ? number_format($row['CLPR2'], 2, ',', '') : '0')."</td>";
                     echo "</tr>";
                 }
 

@@ -20,6 +20,7 @@ header{
 }
 
 .side{
+    min-height: 100vh;
     padding-top: 7px;
     height: 100%;
     background-color: #FFFFFF;
@@ -147,14 +148,6 @@ th>a{
     text-decoration: none;
     color: #6A6A6A;
     font-weight: 600;
-}
-
-th>a::after{
-    content: ''; 
-    position: absolute; /* Абсолютное позиционирование */
-    left: 20px; bottom: -20px; /* Положение треугольника */
-    border: 10px solid transparent; /* Прозрачные границы */
-    border-top: 10px solid green; /* Добавляем треугольник */
 }
 
 td{
