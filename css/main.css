@@ -5,6 +5,35 @@
     font-family: 'Inter', sans-serif;
 }
 
+.auth-page{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.auth-page>img{
+    height: 100vh;
+    width: 100%;
+}
+
+.auth-page>.auth>.logo{
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+    padding: 11px 21px;
+    background-color: #59B077;
+    font-style: 14px;
+    color: #FFFFFF;
+    font-weight: 500;
+    border-radius: 34px;
+    border: 2px solid #FFFFFF;
+    outline:solid #59B077 2px;
+}
+
+.auth-page>.auth>h1{
+    margin-top: 194px;
+    text-align: center;
+}
+
 .page{
     display: grid;
     grid-template-columns: 1fr 5fr;
