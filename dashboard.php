@@ -75,11 +75,11 @@
                 echo "<table>";
                 echo "<thead>
                         <tr>
-                            <th>Артикул</th>
-                            <th>Название</th>
-                            <th>Цена основная</th>
-                            <th>Цена основная</th>
-                            <th>Цена основная</th>
+                            <th><a href='#' id='sort-anumb'>Артикул</a></th>
+                            <th><a href='#' id='sort-name'>Название</th>
+                            <th><a href='#' id='sort-price'>Цена основная</th>
+                            <th><a href='#' id='sort-iternal-price'>Цена внутряняя</th>
+                            <th><a href='#' id='sort-external-price'>Цена внешняя</th>
                         </tr>
                     </thead>";
                 echo "<tbody>";
@@ -106,5 +106,6 @@
             </div>
         </div>
     </div>
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -143,6 +143,12 @@ th{
     max-width: 260px;
 }
 
+th>a{
+    text-decoration: none;
+    color: #6A6A6A;
+    font-weight: 600;
+}
+
 td{
     padding: 8px 0;
     text-align: center;
