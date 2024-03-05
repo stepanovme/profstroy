@@ -267,3 +267,36 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem("selectedSeri", selectedSeri);
     }
 });
+
+function exportToExcel() {
+    // Получаем таблицу
+    var table = document.querySelector('table');
+
+    // Создаем пустой массив для данных
+    var data = [];
+
+    // Получаем заголовки столбцов
+    var headers = [];
+    table.querySelectorAll('th').forEach(function(header) {
+        headers.push(header.textContent);
+    });
+    data.push(headers);
+
+    // Получаем данные из строк таблицы
+    table.querySelectorAll('tbody tr').forEach(function(row) {
+        var rowData = [];
+        row.querySelectorAll('td').forEach(function(cell) {
+            rowData.push(cell.textContent);
+        });
+        data.push(rowData);
+    });
+
+    // Создаем новую книгу Excel
+    var workbook = XLSX.utils.book_new();
+    // Создаем новый лист
+    var worksheet = XLSX.utils.aoa_to_sheet(data);
+    // Добавляем лист к книге
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    // Сохраняем книгу как Excel файл
+    XLSX.writeFile(workbook, 'data.xlsx');
+}

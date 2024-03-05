@@ -41,11 +41,7 @@
             <div class="wrapper-head">
                 <h1>Материальные ценности</h1>
                 <div class="button-excel">
-<<<<<<< HEAD
                     <button id="download-button" onclick="exportToExcel()">Скачать таблицу</button>
-=======
-                    <button>Скачать таблицу</button>
->>>>>>> c5f86063449fc88dce9d6b09bfd0c5c45541a940
                     <button>Обновить таблицу</button>
                 </div>
             </div>
@@ -198,42 +194,6 @@
         </div>
     </div>
     <script src="/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
-    <script>
-        function exportToExcel() {
-            // Получаем таблицу
-            var table = document.querySelector('table');
-
-            // Создаем пустой массив для данных
-            var data = [];
-
-            // Получаем заголовки столбцов
-            var headers = [];
-            table.querySelectorAll('th').forEach(function(header) {
-                headers.push(header.textContent);
-            });
-            data.push(headers);
-
-            // Получаем данные из строк таблицы
-            table.querySelectorAll('tbody tr').forEach(function(row) {
-                var rowData = [];
-                row.querySelectorAll('td').forEach(function(cell) {
-                    rowData.push(cell.textContent);
-                });
-                data.push(rowData);
-            });
-
-            // Создаем новую книгу Excel
-            var workbook = XLSX.utils.book_new();
-            // Создаем новый лист
-            var worksheet = XLSX.utils.aoa_to_sheet(data);
-            // Добавляем лист к книге
-            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-            // Сохраняем книгу как Excel файл
-            XLSX.writeFile(workbook, 'data.xlsx');
-        }
-
-
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script> 
 </body>
 </html>
