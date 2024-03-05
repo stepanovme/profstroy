@@ -268,6 +268,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+// Экспорт таблицы в виде excel
 function exportToExcel() {
     // Получаем таблицу
     var table = document.querySelector('table');
@@ -301,6 +302,7 @@ function exportToExcel() {
     XLSX.writeFile(workbook, 'data.xlsx');
 }
 
+// Обработчик изминения данных в столбце CLPRV
 document.addEventListener('DOMContentLoaded', function() {
     const editableCells = document.querySelectorAll('.editable-cell');
 
@@ -324,6 +326,79 @@ document.addEventListener('DOMContentLoaded', function() {
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Обработка ответа от сервера, если необходимо
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+    }
+});
+
+
+
+// Обработчик изминения данных в столбце CLPR1
+document.addEventListener('DOMContentLoaded', function() {
+    const editableCells = document.querySelectorAll('.editable-cell-clpr1');
+
+    editableCells.forEach(cell => {
+        cell.addEventListener('blur', function() {
+            const newValue = this.textContent.trim();
+            const anumb = this.getAttribute('data-anumb');
+            updateCellValue(anumb, newValue);
+        });
+        cell.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Предотвращаем действие по умолчанию (переход на новую строку)
+
+                // Завершаем редактирование текущей ячейки
+                this.blur();
+            }
+        });
+    });
+
+    function updateCellValue(anumb, newValue) {
+        // Отправка AJAX запроса на сервер
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'update-clpr1.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Обработка ответа от сервера, если необходимо
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+    }
+});
+
+
+// Обработчик изминения данных в столбце CLPR2
+document.addEventListener('DOMContentLoaded', function() {
+    const editableCells = document.querySelectorAll('.editable-cell-clpr2');
+
+    editableCells.forEach(cell => {
+        cell.addEventListener('blur', function() {
+            const newValue = this.textContent.trim();
+            const anumb = this.getAttribute('data-anumb');
+            updateCellValue(anumb, newValue);
+        });
+        cell.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Предотвращаем действие по умолчанию (переход на новую строку)
+
+                // Завершаем редактирование текущей ячейки
+                this.blur();
+            }
+        });
+    });
+
+    function updateCellValue(anumb, newValue) {
+        // Отправка AJAX запроса на сервер
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'update-clpr2.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
