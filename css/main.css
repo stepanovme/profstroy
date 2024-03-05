@@ -152,6 +152,34 @@ header{
     padding: 10px;
 }
 
+.wrapper>.wrapper-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.wrapper>.wrapper-head>.button-excel>button{
+    padding: 12px 0;
+    min-width: 205px;
+    background-color: #59B077;
+    border-radius: 10px;
+    border: none;
+    color: #FFFFFF;
+    font-style: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .2s all ease;
+}
+
+.wrapper>.wrapper-head>.button-excel>button:hover{
+    background-color: #4D9E69;
+}
+
+.wrapper>.wrapper-head>.button-excel>button:active{
+    background-color: #478F60;
+}
+
 table{
     width: 100%;
 }
