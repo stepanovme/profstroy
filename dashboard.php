@@ -42,7 +42,8 @@
                 <h1>Материальные ценности</h1>
                 <div class="button-excel">
                     <button id="download-button" onclick="exportToExcel()">Скачать таблицу</button>
-                    <button>Обновить таблицу</button>
+                    <input type="file" id="file-input">
+                    <button id="update-table">Обновить таблицу</button>
                 </div>
             </div>
 

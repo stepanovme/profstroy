@@ -409,3 +409,58 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
     }
 });
+
+
+document.getElementById('update-table').addEventListener('click', function() {
+    var fileInput = document.getElementById('file-input');
+    var file = fileInput.files[0];
+    
+    if (file) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, { type: 'array' });
+            var sheet = workbook.Sheets[workbook.SheetNames[0]];
+            var rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            // Пропускаем заголовок таблицы
+            for (var i = 1; i < rows.length; i++) {
+                var row = rows[i];
+                var anumb = row[0];
+                var clprc = row[2];
+                var clpr1 = row[3];
+                var clpr2 = row[4];
+
+                // Выполняем AJAX-запрос для обновления данных в базе данных
+                updateDatabase(anumb, clprc, clpr1, clpr2);
+            }
+
+            // После обновления базы данных перезагружаем страницу
+            location.reload();
+        };
+        
+        reader.readAsArrayBuffer(file);
+    }
+});
+
+
+
+function updateDatabase(anumb, clprc, clpr1, clpr2) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'import_excel.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Данные успешно обновлены');
+            } else {
+                console.error('Произошла ошибка при обновлении данных');
+            }
+        }
+    };
+    xhr.send('anumb=' + encodeURIComponent(anumb) + '&clprc=' + encodeURIComponent(clprc) + '&clpr1=' + encodeURIComponent(clpr1) + '&clpr2=' + encodeURIComponent(clpr2));
+}
+
+
+
