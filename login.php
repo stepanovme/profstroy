@@ -20,7 +20,7 @@ header('Content-Type: text/html; charset=WIN1251');
              <h1>Авторизация</h1>
              <form action="">
                 <p>Логин</p>
-                <input type="email" name="" id="">
+                <select name="" id=""></select>
                 <p>Пароль</p>
                 <input type="password" name="" id="">
              </form>

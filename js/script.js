@@ -201,3 +201,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//Передача выбранного типа странице
+document.addEventListener("DOMContentLoaded", function() {
+    var typeSelect = document.getElementById("type-select");
+    
+    // При загрузке страницы проверяем, есть ли сохраненное значение в локальном хранилище
+    var savedType = localStorage.getItem("selectedType");
+    if (savedType) {
+        // Если есть, устанавливаем выбранное значение select
+        typeSelect.value = savedType;
+    }
+    
+    // При изменении значения select сохраняем его в локальном хранилище
+    typeSelect.addEventListener("change", function() {
+        var selectedType = this.value;
+        localStorage.setItem("selectedType", selectedType);
+        // Изменяем URL страницы без перезагрузки
+        window.location.href = "dashboard.php?type=" + selectedType;
+    });
+});
+
+
+
+
