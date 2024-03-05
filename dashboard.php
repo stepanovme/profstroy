@@ -38,13 +38,34 @@
 
             <div class="wrapper">
 
+            <div class="wrapper-head">
+                <h1>Материальные ценности</h1>
+                <div class="button-excel">
+                    <button>Скачать таблицу</button>
+                    <button>Обновить таблицу</button>
+                </div>
+            </div>
 
-                <?php
+            <?php
                 // Определение выбранного типа
                 if(isset($_GET['type'])) {
                     $selectedType = $_GET['type'];
                 } else {
                     $selectedType = ''; // Если тип не выбран, по умолчанию пустая строка
+                }
+
+                // Определение выбранной категории
+                if(isset($_GET['category'])) {
+                    $selectedCategory = $_GET['category'];
+                } else {
+                    $selectedCategory = ''; // Если категория не выбрана, по умолчанию пустая строка
+                }
+
+                // Определение выбранной серии
+                if(isset($_GET['seri'])) {
+                    $selectedSeri = $_GET['seri'];
+                } else {
+                    $selectedSeri = ''; // Если серия не выбрана, по умолчанию пустая строка
                 }
 
                 // echo "Selected type: $selectedType"; // Добавим эту строку для отладки
@@ -64,9 +85,13 @@
 
                     // Выполнение запроса для выбора уникальных категорий из столбца APREF
                     $categoriesQuery = $dbh->query('SELECT DISTINCT APREF FROM Artikls ORDER BY APREF ASC');
-
                     // Получение результатов запроса
                     $categories = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
+
+                    // Выполнение запроса для выбора уникальных серий из столбца ASERI
+                    $seriesQuery = $dbh->query('SELECT DISTINCT ASERI FROM Artikls ORDER BY ASERI ASC');
+                    // Получение результатов запроса
+                    $series = $seriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
                     echo '<form id="search-form" method="GET" action="dashboard.php">
                             <div class="search">
@@ -88,29 +113,46 @@
                                 }
                                 echo "</select>";
 
-                                echo '<select name="" id="">
-                                    <option value="" selected disabled>Серия</option>
-                                </select>
-                            </div>
+                                echo '<select name="seri" id="seri-select">
+                                    <option value="">Серия</option>';
+                                foreach ($series as $seri){
+                                    echo "<option value='$seri'>$seri</option>";
+                                }
+                                echo '</select>';
+
+                                echo '</div>
                             <!-- Добавляем скрытое поле для передачи типа -->
                             <input type="hidden" name="type" value="">
                         </form>';
 
-                    // Подготовка SQL запроса с учетом выбранного типа
+                    // Подготовка SQL запроса с учетом выбранного типа, категории и серии
                     $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRV, v.CLPR1, v.CLPR2
                             FROM Artikls a
                             JOIN ArtsVst v ON a.ANUMB = v.ANUMB';
-                            
-                    if($selectedType === 'Профили') {
-                        $sql .= ' WHERE a.ATYPM = 1';
-                    } elseif($selectedType === 'Аксессуары') {
-                        $sql .= ' WHERE a.ATYPM = 2';
-                    } elseif($selectedType === 'Погонаж') {
-                        $sql .= ' WHERE a.ATYPM = 3';
-                    } elseif($selectedType === 'Инструменты') {
-                        $sql .= ' WHERE a.ATYPM = 4';
-                    } elseif($selectedType === 'Заполнения') {
-                        $sql .= ' WHERE a.ATYPM = 5';
+
+                    // Добавляем условие для выбора типа
+                    if($selectedType !== '') {
+                        if($selectedType === 'Профили') {
+                            $sql .= ' WHERE a.ATYPM = 1';
+                        } elseif($selectedType === 'Аксессуары') {
+                            $sql .= ' WHERE a.ATYPM = 2';
+                        } elseif($selectedType === 'Погонаж') {
+                            $sql .= ' WHERE a.ATYPM = 3';
+                        } elseif($selectedType === 'Инструменты') {
+                            $sql .= ' WHERE a.ATYPM = 4';
+                        } elseif($selectedType === 'Заполнения') {
+                            $sql .= ' WHERE a.ATYPM = 5';
+                        }
+                    }
+
+                    // Добавляем условие для выбора категории
+                    if($selectedCategory !== '') {
+                        $sql .= " AND a.APREF = '$selectedCategory'";
+                    }
+
+                    // Добавляем условие для выбора серии
+                    if($selectedSeri !== '') {
+                        $sql .= " AND a.ASERI = '$selectedSeri'";
                     }
 
                     // Выполнение запроса к базе данных
@@ -146,8 +188,7 @@
                     // В случае ошибки выводим сообщение
                     echo "Ошибка подключения: " . $e->getMessage();
                 }
-                ?>
-
+            ?>
 
             </div>
         </div>

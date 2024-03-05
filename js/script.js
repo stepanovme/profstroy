@@ -203,23 +203,73 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Передача выбранного типа странице
 document.addEventListener("DOMContentLoaded", function() {
+    // Получаем ссылки на элементы select
     var typeSelect = document.getElementById("type-select");
+    var categorySelect = document.getElementById("category-select");
+    var seriSelect = document.getElementById("seri-select");
     
-    // При загрузке страницы проверяем, есть ли сохраненное значение в локальном хранилище
+    // При загрузке страницы проверяем, есть ли сохраненное значение типа в локальном хранилище
     var savedType = localStorage.getItem("selectedType");
     if (savedType) {
         // Если есть, устанавливаем выбранное значение select
         typeSelect.value = savedType;
     }
-    
-    // При изменении значения select сохраняем его в локальном хранилище
-    typeSelect.addEventListener("change", function() {
-        var selectedType = this.value;
+
+    // При загрузке страницы проверяем, есть ли сохраненное значение категории в локальном хранилище
+    var savedCategory = localStorage.getItem("selectedCategory");
+    if (savedCategory) {
+        // Если есть, устанавливаем выбранное значение select
+        categorySelect.value = savedCategory;
+    }
+
+    // При загрузке страницы проверяем, есть ли сохраненное значение серии в локальном хранилище
+    var savedSeri = localStorage.getItem("selectedSeri");
+    if (savedSeri) {
+        // Если есть, устанавливаем выбранное значение select
+        seriSelect.value = savedSeri;
+    }
+
+    // При изменении значения select типа, категории или серии отправляем GET-запрос на сервер
+    typeSelect.addEventListener("change", updateFilters);
+    categorySelect.addEventListener("change", updateFilters);
+    seriSelect.addEventListener("change", updateFilters);
+
+    // Функция для отправки GET-запроса на сервер с учетом текущих значений фильтров
+    function updateFilters() {
+        var selectedType = typeSelect.value;
+        var selectedCategory = categorySelect.value;
+        var selectedSeri = seriSelect.value;
+
+        // Создаем новый URL на основе выбранных значений фильтров
+        var url = "dashboard.php";
+        var params = [];
+        if (selectedType) {
+            params.push("type=" + selectedType);
+        }
+        if (selectedCategory) {
+            params.push("category=" + selectedCategory);
+        }
+        if (selectedSeri) {
+            params.push("seri=" + selectedSeri);
+        }
+        if (params.length > 0) {
+            url += "?" + params.join("&");
+        }
+
+        // Отправляем GET-запрос на сервер
+        window.location.href = url;
+
+        // Обновляем значение типа в локальном хранилище
         localStorage.setItem("selectedType", selectedType);
-        // Изменяем URL страницы без перезагрузки
-        window.location.href = "dashboard.php?type=" + selectedType;
-    });
+        // Обновляем значение категории в локальном хранилище
+        localStorage.setItem("selectedCategory", selectedCategory);
+        // Обновляем значение серии в локальном хранилище
+        localStorage.setItem("selectedSeri", selectedSeri);
+    }
 });
+
+
+
 
 
 
