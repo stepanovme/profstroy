@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/assets/favicon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css"/>
     <title>Дашборд</title>
 </head>
