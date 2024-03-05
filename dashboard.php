@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css"/>
-    <title>Главная</title>
+    <title>Дашборд</title>
 </head>
 <body>
     <div class="page">
@@ -42,7 +42,10 @@
                 <h1>Материальные ценности</h1>
                 <div class="button-excel">
                     <button id="download-button" onclick="exportToExcel()">Скачать таблицу</button>
-                    <input type="file" id="file-input">
+                    <label class="input-file">
+                        <input type="file" name="file" id="file-input">
+                        <span>Выберите файл</span>
+                    </label>
                     <button id="update-table">Обновить таблицу</button>
                 </div>
             </div>
@@ -196,5 +199,13 @@
     </div>
     <script src="/js/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        //Анимация кнопки input file
+        $('.input-file input[type=file]').on('change', function(){
+            let file = this.files[0];
+            $(this).next().html(file.name);
+        });
+    </script>
 </body>
 </html>

@@ -36,7 +36,7 @@
 
 .page{
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 7fr;
     background-color: #F2F2F3;
 }
 
@@ -180,6 +180,52 @@ header{
     background-color: #478F60;
 }
 
+.input-file {
+	position: relative;
+	display: inline-block;
+}
+.input-file span {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+    min-width: 205px;
+	font-size: 14px;
+	vertical-align: middle;
+	color: rgb(255 255 255);
+	text-align: center;
+	border-radius: 10px;
+	background-color: #59B077;
+	height: 40px;
+	padding: 12px 0;
+	box-sizing: border-box;
+	border: none;
+	margin: 0;
+	transition: background-color 0.2s;
+}
+.input-file input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+	width: 0;
+	height: 0;
+}
+ 
+/* Hover/active */
+.input-file:hover span {
+	background-color: #4D9E69;
+}
+.input-file:active span {
+	background-color: #478F60;
+}
+ 
+/* Disabled */
+.input-file input[type=file]:disabled + span {
+	background-color: #eee;
+}
+
 table{
     width: 100%;
 }
@@ -187,6 +233,26 @@ table{
 tr{
     border: 1px solid #E0E4E8;
     background-color: #FFFFFF;
+}
+
+tbody>tr{
+    transition: .1s all;
+}
+
+tbody>tr:hover{
+    background-color: #F6F6F6;
+    box-shadow: 0 7px 10px #cecece;
+    cursor: pointer;
+}
+
+thead>tr>th{
+    transition: .1s all;
+}
+
+thead>tr>th:hover{
+    background-color: #F6F6F6;
+    box-shadow: 0 7px 10px #cecece;
+    cursor: pointer;
 }
 
 thead>tr{
@@ -212,6 +278,11 @@ td{
     text-align: center;
     font-size: 14px;
     color: #6A6A6A;
+}
+
+td:focus{
+    outline: 2px solid #59B077;
+    border-radius: 3px;
 }
 
 tr:last-child td:first-child { border-bottom-left-radius: 10px; }
@@ -259,4 +330,130 @@ select{
     font-weight: 500;
     outline: none;
     cursor: pointer;
+}
+
+
+/* Добавляем стили для псевдоэлемента */
+/* Скрыть псевдоэлемент по умолчанию */
+#sort-name:after {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #6A6A6A;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    transition: transform 0.3s;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-asc' */
+#sort-name.sorted-asc:after {
+    display: inline-block;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-desc' */
+#sort-name.sorted-desc:after {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+#sort-anumb:after {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #6A6A6A;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    transition: transform 0.3s;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-asc' */
+#sort-anumb.sorted-asc:after {
+    display: inline-block;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-desc' */
+#sort-anumb.sorted-desc:after {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+#sort-price:after {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #6A6A6A;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    transition: transform 0.3s;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-asc' */
+#sort-price.sorted-asc:after {
+    display: inline-block;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-desc' */
+#sort-price.sorted-desc:after {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+#sort-iternal-price:after {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #6A6A6A;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    transition: transform 0.3s;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-asc' */
+#sort-iternal-price.sorted-asc:after {
+    display: inline-block;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-desc' */
+#sort-iternal-price.sorted-desc:after {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+
+
+#sort-external-price:after {
+    content: '';
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #6A6A6A;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    transition: transform 0.3s;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-asc' */
+#sort-external-price.sorted-asc:after {
+    display: inline-block;
+}
+
+/* Показать псевдоэлемент, когда есть класс 'sorted-desc' */
+#sort-external-price.sorted-desc:after {
+    display: inline-block;
+    transform: rotate(180deg);
 }

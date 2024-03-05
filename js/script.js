@@ -4,32 +4,48 @@ document.addEventListener("DOMContentLoaded", function() {
     var tableBody = document.querySelector('tbody');
     var rows = tableBody.querySelectorAll('tr');
 
-    // Флаг для определения направления сортировки
-    var sortAscending = true;
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
 
     sortAnumbLink.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Сортировка данных в памяти
-        var sortedRows = Array.from(rows).sort((a, b) => {
-            var aValue = a.cells[0].innerText;
-            var bValue = b.cells[0].innerText;
-            
-            if (sortAscending) {
-                return aValue.localeCompare(bValue);
-            } else {
-                return bValue.localeCompare(aValue);
-            }
-        });
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
 
-        // Удаление текущих строк из таблицы
-        rows.forEach(row => tableBody.removeChild(row));
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
 
-        // Добавление отсортированных строк обратно в таблицу
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[1].innerText;
+                var bValue = b.cells[1].innerText;
 
-        // Инвертирование флага направления сортировки
-        sortAscending = !sortAscending;
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
     });
 });
 
@@ -39,34 +55,52 @@ document.addEventListener("DOMContentLoaded", function() {
     var tableBody = document.querySelector('tbody');
     var rows = tableBody.querySelectorAll('tr');
 
-    // Флаг для определения направления сортировки
-    var sortAscending = true;
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
 
     sortAnumbLink.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Сортировка данных в памяти
-        var sortedRows = Array.from(rows).sort((a, b) => {
-            var aValue = a.cells[1].innerText;
-            var bValue = b.cells[1].innerText;
-            
-            if (sortAscending) {
-                return aValue.localeCompare(bValue);
-            } else {
-                return bValue.localeCompare(aValue);
-            }
-        });
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
 
-        // Удаление текущих строк из таблицы
-        rows.forEach(row => tableBody.removeChild(row));
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
 
-        // Добавление отсортированных строк обратно в таблицу
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[1].innerText;
+                var bValue = b.cells[1].innerText;
 
-        // Инвертирование флага направления сортировки
-        sortAscending = !sortAscending;
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
     });
 });
+
+
 
 // Сортировка столбца CLPRC в dashboard
 document.addEventListener("DOMContentLoaded", function() {
@@ -74,32 +108,48 @@ document.addEventListener("DOMContentLoaded", function() {
     var tableBody = document.querySelector('tbody');
     var rows = tableBody.querySelectorAll('tr');
 
-    // Флаг для определения направления сортировки
-    var sortAscending = true;
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
 
     sortAnumbLink.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Сортировка данных в памяти
-        var sortedRows = Array.from(rows).sort((a, b) => {
-            var aValue = parseInt(a.cells[2].innerText);
-            var bValue = parseInt(b.cells[2].innerText);
-            
-            if (sortAscending) {
-                return aValue - bValue;
-            } else {
-                return bValue - aValue;
-            }
-        });
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
 
-        // Удаление текущих строк из таблицы
-        rows.forEach(row => tableBody.removeChild(row));
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
 
-        // Добавление отсортированных строк обратно в таблицу
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[1].innerText;
+                var bValue = b.cells[1].innerText;
 
-        // Инвертирование флага направления сортировки
-        sortAscending = !sortAscending;
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
     });
 });
 
@@ -110,32 +160,48 @@ document.addEventListener("DOMContentLoaded", function() {
     var tableBody = document.querySelector('tbody');
     var rows = tableBody.querySelectorAll('tr');
 
-    // Флаг для определения направления сортировки
-    var sortAscending = true;
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
 
     sortAnumbLink.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Сортировка данных в памяти
-        var sortedRows = Array.from(rows).sort((a, b) => {
-            var aValue = parseInt(a.cells[3].innerText);
-            var bValue = parseInt(b.cells[3].innerText);
-            
-            if (sortAscending) {
-                return aValue - bValue;
-            } else {
-                return bValue - aValue;
-            }
-        });
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
 
-        // Удаление текущих строк из таблицы
-        rows.forEach(row => tableBody.removeChild(row));
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
 
-        // Добавление отсортированных строк обратно в таблицу
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[1].innerText;
+                var bValue = b.cells[1].innerText;
 
-        // Инвертирование флага направления сортировки
-        sortAscending = !sortAscending;
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
     });
 });
 
@@ -146,35 +212,50 @@ document.addEventListener("DOMContentLoaded", function() {
     var tableBody = document.querySelector('tbody');
     var rows = tableBody.querySelectorAll('tr');
 
-    // Флаг для определения направления сортировки
-    var sortAscending = true;
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
 
     sortAnumbLink.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Сортировка данных в памяти
-        var sortedRows = Array.from(rows).sort((a, b) => {
-            var aValue = parseInt(a.cells[4].innerText);
-            var bValue = parseInt(b.cells[4].innerText);
-            
-            if (sortAscending) {
-                return aValue - bValue;
-            } else {
-                return bValue - aValue;
-            }
-        });
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
 
-        // Удаление текущих строк из таблицы
-        rows.forEach(row => tableBody.removeChild(row));
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
 
-        // Добавление отсортированных строк обратно в таблицу
-        sortedRows.forEach(row => tableBody.appendChild(row));
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[1].innerText;
+                var bValue = b.cells[1].innerText;
 
-        // Инвертирование флага направления сортировки
-        sortAscending = !sortAscending;
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
     });
 });
-
 
 // Живой поиск
 document.addEventListener('DOMContentLoaded', function () {
@@ -444,8 +525,7 @@ document.getElementById('update-table').addEventListener('click', function() {
     }
 });
 
-
-
+// Обновление базы данных
 function updateDatabase(anumb, clprc, clpr1, clpr2) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'import_excel.php', true);
