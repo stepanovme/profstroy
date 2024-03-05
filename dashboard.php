@@ -126,7 +126,7 @@
                         </form>';
 
                     // Подготовка SQL запроса с учетом выбранного типа, категории и серии
-                    $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRV, v.CLPR1, v.CLPR2
+                    $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRC, v.CLPR1, v.CLPR2
                             FROM Artikls a
                             JOIN ArtsVst v ON a.ANUMB = v.ANUMB';
 
@@ -175,9 +175,9 @@
                         echo "<tr>";
                         echo "<td>".$row['ANUMB']."</td>";
                         echo "<td>".$row['ANAME']."</td>";
-                        echo "<td data-column='CLPRV' contenteditable='true'>".($row['CLPRV'] != '0.000000' ? number_format($row['CLPRV'], 2, ',', '') : '0')."</td>";
-                        echo "<td>".($row['CLPR1'] != '0.000000' ? number_format($row['CLPR1'], 2, ',', '') : '0')."</td>";
-                        echo "<td>".($row['CLPR2'] != '0.000000' ? number_format($row['CLPR2'], 2, ',', '') : '0')."</td>";
+                        echo "<td contenteditable='true' class='editable-cell' data-anumb='" . $row['ANUMB'] . "'>" . ($row['CLPRC'] != '0.000000' ? number_format($row['CLPRC'], 2, '.', '') : '0') . "</td>";
+                        echo "<td>".($row['CLPR1'] != '0.000000' ? number_format($row['CLPR1'], 2, '.', '') : '0')."</td>";
+                        echo "<td>".($row['CLPR2'] != '0.000000' ? number_format($row['CLPR2'], 2, '.', '') : '0')."</td>";
                         echo "</tr>";
                     }
 

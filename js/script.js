@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Сортировка столбца CLPRV в dashboard
+// Сортировка столбца CLPRC в dashboard
 document.addEventListener("DOMContentLoaded", function() {
     var sortAnumbLink = document.getElementById('sort-price');
     var tableBody = document.querySelector('tbody');
@@ -300,3 +300,37 @@ function exportToExcel() {
     // Сохраняем книгу как Excel файл
     XLSX.writeFile(workbook, 'data.xlsx');
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const editableCells = document.querySelectorAll('.editable-cell');
+
+    editableCells.forEach(cell => {
+        cell.addEventListener('blur', function() {
+            const newValue = this.textContent.trim();
+            const anumb = this.getAttribute('data-anumb');
+            updateCellValue(anumb, newValue);
+        });
+        cell.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Предотвращаем действие по умолчанию (переход на новую строку)
+
+                // Завершаем редактирование текущей ячейки
+                this.blur();
+            }
+        });
+    });
+
+    function updateCellValue(anumb, newValue) {
+        // Отправка AJAX запроса на сервер
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'update.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Обработка ответа от сервера, если необходимо
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+    }
+});
