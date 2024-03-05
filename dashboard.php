@@ -198,15 +198,9 @@
             </div>
         </div>
     </div>
-    <script src="/js/script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script> 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script>
-        //Анимация кнопки input file
-        $('.input-file input[type=file]').on('change', function(){
-            let file = this.files[0];
-            $(this).next().html(file.name);
-        });
-    </script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

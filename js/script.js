@@ -377,11 +377,21 @@ function exportToExcel() {
     var workbook = XLSX.utils.book_new();
     // Создаем новый лист
     var worksheet = XLSX.utils.aoa_to_sheet(data);
+
+    // Устанавливаем одинаковую ширину для всех столбцов (например, 100 пикселей)
+    var colWidth = {wpx: 100}; // Ширина столбца в пикселях
+    worksheet['!cols'] = Array(data[0].length).fill(colWidth);
+
     // Добавляем лист к книге
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
     // Сохраняем книгу как Excel файл
     XLSX.writeFile(workbook, 'data.xlsx');
 }
+
+
+
+
 
 // Обработчик изминения данных в столбце CLPRV
 document.addEventListener('DOMContentLoaded', function() {
@@ -491,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
+// Обработчик событий при нажатие кнопки обновления таблицы
 document.getElementById('update-table').addEventListener('click', function() {
     var fileInput = document.getElementById('file-input');
     var file = fileInput.files[0];
@@ -542,5 +552,8 @@ function updateDatabase(anumb, clprc, clpr1, clpr2) {
     xhr.send('anumb=' + encodeURIComponent(anumb) + '&clprc=' + encodeURIComponent(clprc) + '&clpr1=' + encodeURIComponent(clpr1) + '&clpr2=' + encodeURIComponent(clpr2));
 }
 
-
-
+//Анимация кнопки input file
+$('.input-file input[type=file]').on('change', function(){
+    let file = this.files[0];
+    $(this).next().html(file.name);
+});
