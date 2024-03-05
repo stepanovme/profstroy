@@ -41,7 +41,11 @@
             <div class="wrapper-head">
                 <h1>Материальные ценности</h1>
                 <div class="button-excel">
+<<<<<<< HEAD
                     <button id="download-button" onclick="exportToExcel()">Скачать таблицу</button>
+=======
+                    <button>Скачать таблицу</button>
+>>>>>>> c5f86063449fc88dce9d6b09bfd0c5c45541a940
                     <button>Обновить таблицу</button>
                 </div>
             </div>
