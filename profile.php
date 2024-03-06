@@ -35,3 +35,24 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
+
+<div class="wrapper">
+    <div class="wrapper-head">
+        <h1>Настройки</h1>
+        <div></div>
+    </div>
+    <div class="setting">
+    <div class="link-db">
+        <div class="data">
+            <p>База данных:</p>
+            <div class="file-path">
+                <p id="file-path-text">Путь</p>
+            </div>
+        </div>
+        <div class="buttons">
+            <input type="file" id="file-input" name="">
+            <button id="submit-button" type="submit">Применить</button>
+        </div>
+    </div>
+</div>
