@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/favicon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css"/>
-    <title></title>
+    <title>ΜΦ</title>
 </head>
 <body>
     <div class="page">
@@ -14,18 +14,18 @@
                 PROF-INTEGRATE
             </button>
             <div class="nav">
-                <p class="side-title"> </p>
+                <p class="side-title">ΓΛΐΒΝΞΕ ΜΕΝή</p>
                 <div class="nav-link active">
                     <img src="/assets/icons/dashbord-icon.svg" alt="">
-                    <a href="dashboard.php"></a>
+                    <a href="dashboard.php">ΜΦ</a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/report.svg" alt="">
-                    <a href="index.php"></a>
+                    <a href="index.php">Οπξεκςϋ</a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/gear.svg" alt="">
-                    <a href="settings.php"></a>
+                    <a href="settings.php">Νΰρςπξικθ</a>
                 </div>
             </div>
         </div>
@@ -35,8 +35,8 @@
                 <div class="profile">
                     <img src="/assets/icons/avatar.svg" class="avatar">
                     <div class="information">
-                        <p class="name"> </p>
-                        <p class="role"></p>
+                        <p class="name">Δενθρ Κσηνεφξβ</p>
+                        <p class="role">ΐδμθνθρςπΰςξπ</p>
                     </div>
                 </div>
             </header>
@@ -44,138 +44,121 @@
             <div class="wrapper">
 
             <div class="wrapper-head">
-                <h1> </h1>
+                <h1>Μΰςεπθΰλόνϋε φεννξρςθ</h1>
                 <div class="button-excel">
-                    <button id="download-button" onclick="exportToExcel()"> </button>
+                    <button id="download-button" onclick="exportToExcel()">Ρκΰχΰςό ςΰαλθφσ</button>
                     <label class="input-file">
                         <input type="file" name="file" id="file-input">
-                        <span> </span>
+                        <span>Δξαΰβθςό τΰιλ</span>
                     </label>
-                    <button id="update-table"> </button>
+                    <button id="update-table">Ξανξβθςό ςΰαλθφσ</button>
                 </div>
             </div>
 
             <?php
-                //   
                 if(isset($_GET['type'])) {
                     $selectedType = $_GET['type'];
                 } else {
-                    $selectedType = ''; //    ,    
+                    $selectedType = ''; 
                 }
 
-                //   
                 if(isset($_GET['category'])) {
                     $selectedCategory = $_GET['category'];
                 } else {
-                    $selectedCategory = ''; //    ,    
+                    $selectedCategory = '';
                 }
 
-                //   
                 if(isset($_GET['seri'])) {
                     $selectedSeri = $_GET['seri'];
                 } else {
-                    $selectedSeri = ''; //    ,    
+                    $selectedSeri = '';
                 }
 
-                // echo "Selected type: $selectedType"; //     
 
-                $host = 'server2:E/Base4/BASE4_ALUTECH(16.18).FDB';
+                $host = 'C:\ospanel\domains\profstroy\BASE4_IVAPER+_23_08_2023 .FDB';
                 $username = 'SYSDBA';
                 $password = 'masterkey';
 
                 try {
-                    //     Firebird  PDO
                     $dbh = new PDO("firebird:dbname=$host;charset=WIN1251", $username, $password);
                     
-                    //    PDO  
                     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     header('Content-Type: text/html; charset=WIN1251');
 
-                    //         APREF
                     $categoriesQuery = $dbh->query('SELECT DISTINCT APREF FROM Artikls ORDER BY APREF ASC');
-                    //   
                     $categories = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
-                    //         ASERI
                     $seriesQuery = $dbh->query('SELECT DISTINCT ASERI FROM Artikls ORDER BY ASERI ASC');
-                    //   
                     $series = $seriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
                     echo '<form id="search-form" method="GET" action="dashboard.php">
                             <div class="search">
                                 <img src="/assets/icons/search.svg" alt="">
-                                <input type="text" name="search-input" id="search-input" placeholder="">
+                                <input type="text" name="search-input" id="search-input" placeholder="Οξθρκ">
                                 <select name="type" id="type-select">
-                                    <option value="" selected></option>
-                                    <option value=""></option>
-                                    <option value=""></option>
-                                    <option value=""></option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="" selected>Òθο</option>
+                                    <option value="Οπξτθλθ">Οπξτθλθ</option>
+                                    <option value="ΐκρερρσΰπϋ">ΐκρερρσΰπϋ</option>
+                                    <option value="Οξγξνΰζ">Οξγξνΰζ</option>
+                                    <option value="Θνρςπσμενςϋ">Θνρςπσμενςϋ</option>
+                                    <option value="Ηΰοξλνενθÿ">Ηΰοξλνενθÿ</option>
                                 </select>';
 
                                 echo "<select name='category' id='category-select'>";
-                                echo "<option value=''></option>";
+                                echo "<option value=''>Κΰςεγξπθÿ</option>";
                                 foreach ($categories as $category) {
                                     echo "<option value='$category'>$category</option>";
                                 }
                                 echo "</select>";
 
                                 echo '<select name="seri" id="seri-select">
-                                    <option value=""></option>';
+                                    <option value="">Ρεπθÿ</option>';
                                 foreach ($series as $seri){
                                     echo "<option value='$seri'>$seri</option>";
                                 }
                                 echo '</select>';
 
                                 echo '</div>
-                            <!--       -->
                             <input type="hidden" name="type" value="">
                         </form>';
 
-                    //  SQL     ,   
                     $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRC, v.CLPR1, v.CLPR2
                             FROM Artikls a
                             JOIN ArtsVst v ON a.ANUMB = v.ANUMB';
 
-                    //     
                     if($selectedType !== '') {
-                        if($selectedType === '') {
+                        if($selectedType === 'Οπξτθλθ') {
                             $sql .= ' WHERE a.ATYPM = 1';
-                        } elseif($selectedType === '') {
+                        } elseif($selectedType === 'ΐκρερρσΰπϋ') {
                             $sql .= ' WHERE a.ATYPM = 2';
-                        } elseif($selectedType === '') {
+                        } elseif($selectedType === 'Οξγξνΰζ') {
                             $sql .= ' WHERE a.ATYPM = 3';
-                        } elseif($selectedType === '') {
+                        } elseif($selectedType === 'Θνρςπσμενςϋ') {
                             $sql .= ' WHERE a.ATYPM = 4';
-                        } elseif($selectedType === '') {
+                        } elseif($selectedType === 'Ηΰοξλνενθÿ') {
                             $sql .= ' WHERE a.ATYPM = 5';
                         }
                     }
 
-                    //     
                     if($selectedCategory !== '') {
                         $sql .= " AND a.APREF = '$selectedCategory'";
                     }
 
-                    //     
                     if($selectedSeri !== '') {
                         $sql .= " AND a.ASERI = '$selectedSeri'";
                     }
 
-                    //     
                     $sth = $dbh->query($sql);
 
-                    //      HTML
                     echo "<table>";
                     echo "<thead>
                             <tr>
-                                <th><a href='#' id='sort-anumb'></a></th>
-                                <th><a href='#' id='sort-name'></th>
-                                <th><a href='#' id='sort-price'> </th>
-                                <th><a href='#' id='sort-iternal-price'> </th>
-                                <th><a href='#' id='sort-external-price'> </th>
+                                <th><a href='#' id='sort-anumb'>ΐπςθκσλ</a></th>
+                                <th><a href='#' id='sort-name'>Νΰηβΰνθε</th>
+                                <th><a href='#' id='sort-price'>Φενΰ ξρνξβνΰÿ</th>
+                                <th><a href='#' id='sort-iternal-price'>Φενΰ ξρνξβνΰÿ</th>
+                                <th><a href='#' id='sort-external-price'>Φενΰ ξρνξβνΰÿ</th>
                             </tr>
                         </thead>";
                     echo "<tbody>";
@@ -194,8 +177,7 @@
                     echo "</table>";
 
                 } catch (PDOException $e) {
-                    //     
-                    echo " : " . $e->getMessage();
+                    echo "Ξψθακΰ ρξεδθνενθÿ: " . $e->getMessage();
                 }
             ?>
 
