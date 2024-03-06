@@ -3,6 +3,9 @@ session_start();
 
 include 'db.php';
 
+// Объявляем переменную $pathDB глобальной
+global $pathDB;
+
 // Проверяем, установлена ли сессия для пользователя
 if (!isset($_SESSION['userId'])) {
     // Если сессия не установлена, перенаправляем пользователя на страницу входа
@@ -13,7 +16,6 @@ if (!isset($_SESSION['userId'])) {
 
 $conn = new mysqli($host, $username, $password, $dbname);
 $conn->set_charset("cp1251");
-
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -33,6 +35,16 @@ $sql = "SELECT user.*, role.roleName
 
 $result = $conn->query($sql);
 
+if ($result->num_rows > 0) {
+    // Получаем данные из результата запроса
+    $row = $result->fetch_assoc();
+    // Извлекаем значение столбца pathBD и сохраняем его в глобальной переменной $pathDB
+    $pathDB = $row['pathBD'];
+} else {
+    echo "0 results";
+}
+echo $pathDB;
+// Теперь переменная $pathDB доступна глобально
 ?>
 
 
@@ -122,7 +134,7 @@ $result = $conn->query($sql);
                 }
 
 
-                $host = 'C:\ospanel\domains\profstroy\BASE4_IVAPER+_23_08_2023 .FDB';
+                $host = $pathDB;
                 $username = 'SYSDBA';
                 $password = 'masterkey';
 

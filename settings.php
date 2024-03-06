@@ -35,11 +35,12 @@ if(isset($_FILES['file']) && !empty($_FILES['file']['name'])) {
     // Соединяем абсолютный путь к директории и имя файла
     $file_path = "E:\\Base4\\" . $file_name;
 
-    // Обновление пути в базе данных
-    $update_sql = "UPDATE user SET pathBD = '$file_path' WHERE userId = '$userId'";
-    $conn->query($update_sql);
-
-    echo $file_path;
+    // Подготавливаем запрос с использованием подготовленных выражений
+    $update_sql = $conn->prepare("UPDATE user SET pathBD = ? WHERE userId = ?");
+    // Привязываем параметры и выполняем запрос
+    $update_sql->bind_param("si", $file_path, $userId);
+    $update_sql->execute();
+    $update_sql->close();
 }
 
 $sql = "SELECT user.*, role.roleName 
@@ -49,6 +50,7 @@ $sql = "SELECT user.*, role.roleName
 
 $result = $conn->query($sql);
 ?>
+
 
 
 
