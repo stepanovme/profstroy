@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,6 +31,7 @@
 
         include 'db.php';
         $conn = new mysqli($host, $username, $password, $dbname);
+        $conn->set_charset("cp1251");
 
         // Проверка соединения
         if ($conn->connect_error) {
@@ -56,7 +55,7 @@
                 $_SESSION['userId'] = $row['userId'];
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['surname'] = $row['surname'];
-                header("Location: profile.php");
+                header("Location: dashboard.php");
                 exit;
             } else {
                 // Неверные логин или пароль

@@ -1,3 +1,41 @@
+<?php
+session_start();
+
+include 'db.php';
+
+// Проверяем, установлена ли сессия для пользователя
+if (!isset($_SESSION['userId'])) {
+    // Если сессия не установлена, перенаправляем пользователя на страницу входа
+    header('Content-Type: text/html; charset=WIN1251');
+    header("Location: index.php");
+    exit;
+}
+
+$conn = new mysqli($host, $username, $password, $dbname);
+$conn->set_charset("cp1251");
+
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (!isset($_SESSION['userId'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$userId = $_SESSION['userId'];
+
+$sql = "SELECT user.*, role.roleName 
+        FROM user 
+        INNER JOIN role ON user.roleId = role.roleId 
+        WHERE user.userId = '$userId'";
+
+$result = $conn->query($sql);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -35,8 +73,17 @@
                 <div class="profile">
                     <img src="/assets/icons/avatar.svg" class="avatar">
                     <div class="information">
-                        <p class="name">Денис Кузнецов</p>
-                        <p class="role">Администратор</p>
+                        <p class="name"><?php echo $_SESSION['name'] . " " . $_SESSION['surname'];?></p>
+                        <p class="role">
+                        <?php
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            echo $row['roleName'];
+                        } else {
+                            echo "Пользователь не найден.";
+                        }
+                        ?>
+                        </p>
                     </div>
                 </div>
             </header>
