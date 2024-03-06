@@ -5,6 +5,8 @@
     font-family: 'Inter', sans-serif;
 }
 
+
+/* login.php */
 .auth-page{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -34,6 +36,7 @@
     text-align: center;
 }
 
+/* dashboard.php */
 .page{
     display: grid;
     grid-template-columns: 1fr 7fr;
@@ -457,3 +460,6 @@ select{
     display: inline-block;
     transform: rotate(180deg);
 }
+
+
+/* projects.php */

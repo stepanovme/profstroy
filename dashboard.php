@@ -17,11 +17,11 @@
                 <p class="side-title">ГЛАВНОЕ МЕНЮ</p>
                 <div class="nav-link active">
                     <img src="/assets/icons/dashbord-icon.svg" alt="">
-                    <a href="dashboard.php">Дашборд</a>
+                    <a href="dashboard.php">МЦ</a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/report.svg" alt="">
-                    <a href="report.php">Отчёт</a>
+                    <a href="index.php">Проекты</a>
                 </div>
             </div>
         </div>

@@ -30,8 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = a.cells[1].innerText;
-                var bValue = b.cells[1].innerText;
+                var aValue = a.cells[0].innerText;
+                var bValue = b.cells[0].innerText;
 
                 if (sortState === 1) {
                     return aValue.localeCompare(bValue);
@@ -134,13 +134,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = a.cells[1].innerText;
-                var bValue = b.cells[1].innerText;
+                var aValue = parseFloat(a.cells[2].innerText);
+                var bValue = parseFloat(b.cells[2].innerText);
 
                 if (sortState === 1) {
-                    return aValue.localeCompare(bValue);
+                    return aValue - bValue;
                 } else {
-                    return bValue.localeCompare(aValue);
+                    return bValue - aValue;
                 }
             });
 
@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
 
 
 // Сортировка столбца CLPR1 в dashboard
@@ -186,13 +187,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = a.cells[1].innerText;
-                var bValue = b.cells[1].innerText;
+                var aValue = parseFloat(a.cells[3].innerText);
+                var bValue = parseFloat(b.cells[3].innerText);
 
                 if (sortState === 1) {
-                    return aValue.localeCompare(bValue);
+                    return aValue - bValue;
                 } else {
-                    return bValue.localeCompare(aValue);
+                    return bValue - aValue;
                 }
             });
 
@@ -238,13 +239,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = a.cells[1].innerText;
-                var bValue = b.cells[1].innerText;
+                var aValue = parseFloat(a.cells[4].innerText);
+                var bValue = parseFloat(b.cells[4].innerText);
 
                 if (sortState === 1) {
-                    return aValue.localeCompare(bValue);
+                    return aValue - bValue;
                 } else {
-                    return bValue.localeCompare(aValue);
+                    return bValue - aValue;
                 }
             });
 
