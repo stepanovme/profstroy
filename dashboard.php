@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/assets/favicon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css"/>
-    <title>Дашборд</title>
+    <title></title>
 </head>
 <body>
     <div class="page">
@@ -14,18 +14,18 @@
                 PROF-INTEGRATE
             </button>
             <div class="nav">
-                <p class="side-title">ГЛАВНОЕ МЕНЮ</p>
+                <p class="side-title"> </p>
                 <div class="nav-link active">
                     <img src="/assets/icons/dashbord-icon.svg" alt="">
-                    <a href="dashboard.php">МЦ</a>
+                    <a href="dashboard.php"></a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/report.svg" alt="">
-                    <a href="index.php">Проекты</a>
+                    <a href="index.php"></a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/gear.svg" alt="">
-                    <a href="settings.php">Настройки</a>
+                    <a href="settings.php"></a>
                 </div>
             </div>
         </div>
@@ -35,8 +35,8 @@
                 <div class="profile">
                     <img src="/assets/icons/avatar.svg" class="avatar">
                     <div class="information">
-                        <p class="name">Денис Кузнецов</p>
-                        <p class="role">Администратор</p>
+                        <p class="name"> </p>
+                        <p class="role"></p>
                     </div>
                 </div>
             </header>
@@ -44,138 +44,138 @@
             <div class="wrapper">
 
             <div class="wrapper-head">
-                <h1>Материальные ценности</h1>
+                <h1> </h1>
                 <div class="button-excel">
-                    <button id="download-button" onclick="exportToExcel()">Скачать таблицу</button>
+                    <button id="download-button" onclick="exportToExcel()"> </button>
                     <label class="input-file">
                         <input type="file" name="file" id="file-input">
-                        <span>Выберите файл</span>
+                        <span> </span>
                     </label>
-                    <button id="update-table">Обновить таблицу</button>
+                    <button id="update-table"> </button>
                 </div>
             </div>
 
             <?php
-                // Определение выбранного типа
+                //   
                 if(isset($_GET['type'])) {
                     $selectedType = $_GET['type'];
                 } else {
-                    $selectedType = ''; // Если тип не выбран, по умолчанию пустая строка
+                    $selectedType = ''; //    ,    
                 }
 
-                // Определение выбранной категории
+                //   
                 if(isset($_GET['category'])) {
                     $selectedCategory = $_GET['category'];
                 } else {
-                    $selectedCategory = ''; // Если категория не выбрана, по умолчанию пустая строка
+                    $selectedCategory = ''; //    ,    
                 }
 
-                // Определение выбранной серии
+                //   
                 if(isset($_GET['seri'])) {
                     $selectedSeri = $_GET['seri'];
                 } else {
-                    $selectedSeri = ''; // Если серия не выбрана, по умолчанию пустая строка
+                    $selectedSeri = ''; //    ,    
                 }
 
-                // echo "Selected type: $selectedType"; // Добавим эту строку для отладки
+                // echo "Selected type: $selectedType"; //     
 
-                $host = 'C:\ospanel\domains\profstroy\BASE4_IVAPER+_23_08_2023 .FDB';
+                $host = 'server2:E/Base4/BASE4_ALUTECH(16.18).FDB';
                 $username = 'SYSDBA';
                 $password = 'masterkey';
 
                 try {
-                    // Подключение к базе данных Firebird через PDO
+                    //     Firebird  PDO
                     $dbh = new PDO("firebird:dbname=$host;charset=WIN1251", $username, $password);
                     
-                    // Установка режима ошибок PDO на исключения
+                    //    PDO  
                     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     header('Content-Type: text/html; charset=WIN1251');
 
-                    // Выполнение запроса для выбора уникальных категорий из столбца APREF
+                    //         APREF
                     $categoriesQuery = $dbh->query('SELECT DISTINCT APREF FROM Artikls ORDER BY APREF ASC');
-                    // Получение результатов запроса
+                    //   
                     $categories = $categoriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
-                    // Выполнение запроса для выбора уникальных серий из столбца ASERI
+                    //         ASERI
                     $seriesQuery = $dbh->query('SELECT DISTINCT ASERI FROM Artikls ORDER BY ASERI ASC');
-                    // Получение результатов запроса
+                    //   
                     $series = $seriesQuery->fetchAll(PDO::FETCH_COLUMN);
 
                     echo '<form id="search-form" method="GET" action="dashboard.php">
                             <div class="search">
                                 <img src="/assets/icons/search.svg" alt="">
-                                <input type="text" name="search-input" id="search-input" placeholder="Поиск">
+                                <input type="text" name="search-input" id="search-input" placeholder="">
                                 <select name="type" id="type-select">
-                                    <option value="" selected>Тип</option>
-                                    <option value="Профили">Профили</option>
-                                    <option value="Аксессуары">Аксессуары</option>
-                                    <option value="Погонаж">Погонаж</option>
-                                    <option value="Инструменты">Инструменты</option>
-                                    <option value="Заполнения">Заполнения</option>
+                                    <option value="" selected></option>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    <option value=""></option>
+                                    <option value=""></option>
                                 </select>';
 
                                 echo "<select name='category' id='category-select'>";
-                                echo "<option value=''>Категория</option>";
+                                echo "<option value=''></option>";
                                 foreach ($categories as $category) {
                                     echo "<option value='$category'>$category</option>";
                                 }
                                 echo "</select>";
 
                                 echo '<select name="seri" id="seri-select">
-                                    <option value="">Серия</option>';
+                                    <option value=""></option>';
                                 foreach ($series as $seri){
                                     echo "<option value='$seri'>$seri</option>";
                                 }
                                 echo '</select>';
 
                                 echo '</div>
-                            <!-- Добавляем скрытое поле для передачи типа -->
+                            <!--       -->
                             <input type="hidden" name="type" value="">
                         </form>';
 
-                    // Подготовка SQL запроса с учетом выбранного типа, категории и серии
+                    //  SQL     ,   
                     $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRC, v.CLPR1, v.CLPR2
                             FROM Artikls a
                             JOIN ArtsVst v ON a.ANUMB = v.ANUMB';
 
-                    // Добавляем условие для выбора типа
+                    //     
                     if($selectedType !== '') {
-                        if($selectedType === 'Профили') {
+                        if($selectedType === '') {
                             $sql .= ' WHERE a.ATYPM = 1';
-                        } elseif($selectedType === 'Аксессуары') {
+                        } elseif($selectedType === '') {
                             $sql .= ' WHERE a.ATYPM = 2';
-                        } elseif($selectedType === 'Погонаж') {
+                        } elseif($selectedType === '') {
                             $sql .= ' WHERE a.ATYPM = 3';
-                        } elseif($selectedType === 'Инструменты') {
+                        } elseif($selectedType === '') {
                             $sql .= ' WHERE a.ATYPM = 4';
-                        } elseif($selectedType === 'Заполнения') {
+                        } elseif($selectedType === '') {
                             $sql .= ' WHERE a.ATYPM = 5';
                         }
                     }
 
-                    // Добавляем условие для выбора категории
+                    //     
                     if($selectedCategory !== '') {
                         $sql .= " AND a.APREF = '$selectedCategory'";
                     }
 
-                    // Добавляем условие для выбора серии
+                    //     
                     if($selectedSeri !== '') {
                         $sql .= " AND a.ASERI = '$selectedSeri'";
                     }
 
-                    // Выполнение запроса к базе данных
+                    //     
                     $sth = $dbh->query($sql);
 
-                    // Вывод данных в виде таблицы HTML
+                    //      HTML
                     echo "<table>";
                     echo "<thead>
                             <tr>
-                                <th><a href='#' id='sort-anumb'>Артикул</a></th>
-                                <th><a href='#' id='sort-name'>Название</th>
-                                <th><a href='#' id='sort-price'>Цена основная</th>
-                                <th><a href='#' id='sort-iternal-price'>Цена внутряняя</th>
-                                <th><a href='#' id='sort-external-price'>Цена внешняя</th>
+                                <th><a href='#' id='sort-anumb'></a></th>
+                                <th><a href='#' id='sort-name'></th>
+                                <th><a href='#' id='sort-price'> </th>
+                                <th><a href='#' id='sort-iternal-price'> </th>
+                                <th><a href='#' id='sort-external-price'> </th>
                             </tr>
                         </thead>";
                     echo "<tbody>";
@@ -194,8 +194,8 @@
                     echo "</table>";
 
                 } catch (PDOException $e) {
-                    // В случае ошибки выводим сообщение
-                    echo "Ошибка подключения: " . $e->getMessage();
+                    //     
+                    echo " : " . $e->getMessage();
                 }
             ?>
 
