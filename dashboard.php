@@ -23,6 +23,10 @@
                     <img src="/assets/icons/report.svg" alt="">
                     <a href="index.php">Проекты</a>
                 </div>
+                <div class="nav-link">
+                    <img src="/assets/icons/gear.svg" alt="">
+                    <a href="settings.php">Настройки</a>
+                </div>
             </div>
         </div>
 
