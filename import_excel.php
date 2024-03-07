@@ -65,24 +65,38 @@ $username = 'SYSDBA';
 $password = 'masterkey';
 
 try {
+    // Подключение к базе данных Firebird через PDO
     $dbh = new PDO("firebird:dbname=$host;charset=WIN1251", $username, $password);
+    // Установка режима ошибок PDO на исключения
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Получаем значение CNAME из POST-запроса
     $cname = $_POST['cname'];
 
+    // Преобразуем значение CNAME из UTF-8 в WIN1251
+    $cname_cp1251 = iconv("UTF-8", "CP1251", $cname);
+
     // Находим соответствующий CNUMB по CNAME в таблице ColsLst
     $stmt = $dbh->prepare("SELECT CNUMB FROM ColsLst WHERE CNAME = ?");
-    $stmt->execute([$cname]);
+    $stmt->execute([$cname_cp1251]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
     $cnumb = $row['CNUMB'];
 
-    // Обновляем данные в таблице ArtsVst, где CLNUM = найденному CNUMB
-    $stmt = $dbh->prepare("UPDATE ArtsVst SET CLPRC = ?, CLPR1 = ?, CLPR2 = ? WHERE CLNUM = ?");
-    $stmt->execute([$clprc, $clpr1, $clpr2, $cnumb]);
+    // Получение данных из запроса и преобразование из UTF-8 в WIN1251
+    $anumb = $_POST['anumb'];
+    $anumb_cp1251 = iconv("UTF-8", "CP1251", $anumb);
+    $clprc = $_POST['clprc'];
+    $clpr1 = $_POST['clpr1'];
+    $clpr2 = $_POST['clpr2'];
+
+    // Обновляем данные в таблице ArtsVst, где ANUMB = найденному CNUMB
+    $stmt = $dbh->prepare("UPDATE ArtsVst SET CLPRC = ?, CLPR1 = ?, CLPR2 = ? WHERE ANUMB = ? AND  CLNUM = ?");
+    $stmt->execute([$clprc, $clpr1, $clpr2, $anumb_cp1251, $cnumb]);
 
     echo "success";
 } catch (PDOException $e) {
     echo "error: " . $e->getMessage();
 }
+
 ?>

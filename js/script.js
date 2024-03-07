@@ -590,16 +590,17 @@ document.getElementById('update-table').addEventListener('click', function() {
             for (var i = 1; i < rows.length; i++) {
                 var row = rows[i];
                 var anumb = row[0];
-                var clprc = row[2];
-                var clpr1 = row[3];
-                var clpr2 = row[4];
+                var cname = row[2]; // Предполагается, что CNAME находится в 3 столбце
+                var clprc = row[3]; // Предполагается, что CLPRC смещен на 1 столбец вправо
+                var clpr1 = row[4]; // Предполагается, что CLPR1 смещен на 1 столбец вправо
+                var clpr2 = row[5]; // Предполагается, что CLPR2 смещен на 1 столбец вправо
 
                 // Выполняем AJAX-запрос для обновления данных в базе данных
-                updateDatabase(anumb, clprc, clpr1, clpr2);
+                updateDatabase(anumb, cname, clprc, clpr1, clpr2);
             }
 
             // После обновления базы данных перезагружаем страницу
-            location.reload();
+            // location.reload();
         };
         
         reader.readAsArrayBuffer(file);
@@ -607,21 +608,22 @@ document.getElementById('update-table').addEventListener('click', function() {
 });
 
 // Обновление базы данных
-function updateDatabase(anumb, clprc, clpr1, clpr2) {
+function updateDatabase(anumb, cname, clprc, clpr1, clpr2) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'import_excel.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
-                console.log('Данные успешно обновлены');
+                console.log('Success');
             } else {
-                console.error('Произошла ошибка при обновлении данных');
+                console.error('Failed');
             }
         }
     };
-    xhr.send('anumb=' + encodeURIComponent(anumb) + '&clprc=' + encodeURIComponent(clprc) + '&clpr1=' + encodeURIComponent(clpr1) + '&clpr2=' + encodeURIComponent(clpr2));
+    xhr.send('anumb=' + encodeURIComponent(anumb) + '&cname=' + encodeURIComponent(cname) + '&clprc=' + encodeURIComponent(clprc) + '&clpr1=' + encodeURIComponent(clpr1) + '&clpr2=' + encodeURIComponent(clpr2));
 }
+
 
 //Анимация кнопки input file
 $('.input-file input[type=file]').on('change', function(){
