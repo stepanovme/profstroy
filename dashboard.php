@@ -217,8 +217,8 @@ if ($result->num_rows > 0) {
                                 <th><a href='#' id='sort-name'>Название</th>
                                 <th><a href='#' id='sort-color'>Цвет</th>
                                 <th><a href='#' id='sort-price'>Цена основная</th>
-                                <th><a href='#' id='sort-iternal-price'>Цена основная</th>
-                                <th><a href='#' id='sort-external-price'>Цена основная</th>
+                                <th><a href='#' id='sort-iternal-price'>Цена внутряняя</th>
+                                <th><a href='#' id='sort-external-price'>Цена внешняя</th>
                             </tr>
                         </thead>";
                     echo "<tbody>";

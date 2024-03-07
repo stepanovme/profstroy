@@ -462,6 +462,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateCellValue(anumb, clnum, newValue) {
+        // Заменяем запятую на точку
+        newValue = newValue.replace(',', '.');
+    
+        // Если значение пустое, заменяем его на 0
+        newValue = newValue.trim() === '' ? '0' : newValue.trim();
+    
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update.php', true);
@@ -475,6 +481,8 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send('anumb=' + encodeURIComponent(anumb) + '&clnum=' + encodeURIComponent(clnum) + '&newValue=' + encodeURIComponent(newValue));
     }
 });
+
+
 
 
 
@@ -500,6 +508,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function updateCellValue(anumb, clnum, newValue) {
+        // Заменяем запятую на точку
+        newValue = newValue.replace(',', '.');
+    
+        // Если значение пустое, заменяем его на 0
+        newValue = newValue.trim() === '' ? '0' : newValue.trim();
+    
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update-clpr1.php', true);
@@ -536,7 +550,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
     function updateCellValue(anumb, clnum, newValue) {
+        // Заменяем запятую на точку
+        newValue = newValue.replace(',', '.');
+    
+        // Если значение пустое, заменяем его на 0
+        newValue = newValue.trim() === '' ? '0' : newValue.trim();
+    
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update-clpr2.php', true);

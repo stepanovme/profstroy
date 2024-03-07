@@ -80,7 +80,11 @@ $newValue_cp1251 = iconv("UTF-8", "CP1251", $newValue);
 $anumb_cp1251 = iconv("UTF-8", "CP1251", $anumb);
 $clnum_cp1251 = iconv("UTF-8", "CP1251", $clnum);
 
+echo $newValue_cp1251;
+
 try {
+
+
     // Выполнение SQL-скрипта обновления с использованием подготовленного запроса
     $sql = "UPDATE ArtsVst SET CLPRC = :newValue WHERE ANUMB = :anumb AND CLNUM = :clnum;";
     $stmt = $dbh->prepare($sql);
