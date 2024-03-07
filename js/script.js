@@ -101,6 +101,56 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+// Сортировка столбца CNAME в dashboard
+document.addEventListener("DOMContentLoaded", function() {
+    var sortAnumbLink = document.getElementById('sort-color');
+    var tableBody = document.querySelector('tbody');
+    var rows = tableBody.querySelectorAll('tr');
+
+    // Флаг для определения текущего состояния сортировки
+    var sortState = 0;
+
+    sortAnumbLink.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Обновляем флаг состояния сортировки
+        sortState = (sortState + 1) % 3;
+
+        // Устанавливаем классы в соответствии с текущим состоянием сортировки
+        switch (sortState) {
+            case 0:
+                sortAnumbLink.classList.remove('sorted-asc', 'sorted-desc');
+                break;
+            case 1:
+                sortAnumbLink.classList.add('sorted-asc');
+                break;
+            case 2:
+                sortAnumbLink.classList.remove('sorted-asc');
+                sortAnumbLink.classList.add('sorted-desc');
+                break;
+        }
+
+        // Сортировка данных в памяти, если нужно
+        if (sortState !== 0) {
+            var sortedRows = Array.from(rows).sort((a, b) => {
+                var aValue = a.cells[2].innerText;
+                var bValue = b.cells[2].innerText;
+
+                if (sortState === 1) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
+            });
+
+            // Удаление текущих строк из таблицы
+            rows.forEach(row => tableBody.removeChild(row));
+
+            // Добавление отсортированных строк обратно в таблицу
+            sortedRows.forEach(row => tableBody.appendChild(row));
+        }
+    });
+});
 
 // Сортировка столбца CLPRC в dashboard
 document.addEventListener("DOMContentLoaded", function() {
@@ -134,8 +184,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = parseFloat(a.cells[2].innerText);
-                var bValue = parseFloat(b.cells[2].innerText);
+                var aValue = parseFloat(a.cells[3].innerText);
+                var bValue = parseFloat(b.cells[3].innerText);
 
                 if (sortState === 1) {
                     return aValue - bValue;
@@ -187,8 +237,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = parseFloat(a.cells[3].innerText);
-                var bValue = parseFloat(b.cells[3].innerText);
+                var aValue = parseFloat(a.cells[4].innerText);
+                var bValue = parseFloat(b.cells[4].innerText);
 
                 if (sortState === 1) {
                     return aValue - bValue;
@@ -239,8 +289,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Сортировка данных в памяти, если нужно
         if (sortState !== 0) {
             var sortedRows = Array.from(rows).sort((a, b) => {
-                var aValue = parseFloat(a.cells[4].innerText);
-                var bValue = parseFloat(b.cells[4].innerText);
+                var aValue = parseFloat(a.cells[5].innerText);
+                var bValue = parseFloat(b.cells[5].innerText);
 
                 if (sortState === 1) {
                     return aValue - bValue;
@@ -402,7 +452,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cell.addEventListener('blur', function() {
             const newValue = this.textContent.trim();
             const anumb = this.getAttribute('data-anumb');
-            updateCellValue(anumb, newValue);
+            const clnum = this.getAttribute('data-clnum');
+            updateCellValue(anumb, clnum, newValue);
         });
         cell.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -414,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    function updateCellValue(anumb, newValue) {
+    function updateCellValue(anumb, clnum, newValue) {
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update.php', true);
@@ -425,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(xhr.responseText);
             }
         };
-        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&clnum=' + encodeURIComponent(clnum) + '&newValue=' + encodeURIComponent(newValue));
     }
 });
 
@@ -438,8 +489,9 @@ document.addEventListener('DOMContentLoaded', function() {
     editableCells.forEach(cell => {
         cell.addEventListener('blur', function() {
             const newValue = this.textContent.trim();
+            const clnum = this.getAttribute('data-clnum');
             const anumb = this.getAttribute('data-anumb');
-            updateCellValue(anumb, newValue);
+            updateCellValue(anumb, clnum, newValue);
         });
         cell.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -451,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    function updateCellValue(anumb, newValue) {
+    function updateCellValue(anumb, clnum, newValue) {
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update-clpr1.php', true);
@@ -462,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(xhr.responseText);
             }
         };
-        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&clnum=' + encodeURIComponent(clnum) + '&newValue=' + encodeURIComponent(newValue));
     }
 });
 
@@ -474,8 +526,9 @@ document.addEventListener('DOMContentLoaded', function() {
     editableCells.forEach(cell => {
         cell.addEventListener('blur', function() {
             const newValue = this.textContent.trim();
+            const clnum = this.getAttribute('data-clnum');
             const anumb = this.getAttribute('data-anumb');
-            updateCellValue(anumb, newValue);
+            updateCellValue(anumb, clnum, newValue);
         });
         cell.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
@@ -487,7 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    function updateCellValue(anumb, newValue) {
+    function updateCellValue(anumb, clnum, newValue) {
         // Отправка AJAX запроса на сервер
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'update-clpr2.php', true);
@@ -498,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(xhr.responseText);
             }
         };
-        xhr.send('anumb=' + encodeURIComponent(anumb) + '&newValue=' + encodeURIComponent(newValue));
+        xhr.send('anumb=' + encodeURIComponent(anumb) + '&clnum=' + encodeURIComponent(clnum) + '&newValue=' + encodeURIComponent(newValue));
     }
 });
 

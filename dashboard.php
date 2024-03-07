@@ -181,9 +181,10 @@ if ($result->num_rows > 0) {
                             <input type="hidden" name="type" value="">
                         </form>';
 
-                    $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRC, v.CLPR1, v.CLPR2
-                            FROM Artikls a
-                            JOIN ArtsVst v ON a.ANUMB = v.ANUMB';
+                    $sql = 'SELECT a.ANUMB, a.ANAME, v.CLPRC, v.CLPR1, v.CLPR2, cl.CNAME, v.CLNUM
+                                                    FROM Artikls a
+                                                    JOIN ArtsVst v ON a.ANUMB = v.ANUMB
+                                                    JOIN ColsLst cl ON v.CLNUM = cl.CNUMB';
 
                     if($selectedType !== '') {
                         if($selectedType === 'Профили') {
@@ -214,6 +215,7 @@ if ($result->num_rows > 0) {
                             <tr>
                                 <th><a href='#' id='sort-anumb'>Артикул</a></th>
                                 <th><a href='#' id='sort-name'>Название</th>
+                                <th><a href='#' id='sort-color'>Цвет</th>
                                 <th><a href='#' id='sort-price'>Цена основная</th>
                                 <th><a href='#' id='sort-iternal-price'>Цена основная</th>
                                 <th><a href='#' id='sort-external-price'>Цена основная</th>
@@ -225,9 +227,10 @@ if ($result->num_rows > 0) {
                         echo "<tr>";
                         echo "<td>".$row['ANUMB']."</td>";
                         echo "<td>".$row['ANAME']."</td>";
-                        echo "<td contenteditable='true' class='editable-cell' data-anumb='" . $row['ANUMB'] . "'>" . ($row['CLPRC'] != '0.000000' ? number_format($row['CLPRC'], 2, '.', '') : '0') . "</td>";
-                        echo "<td contenteditable='true' class='editable-cell-clpr1' data-anumb='" . $row['ANUMB'] . "'>" .($row['CLPR1'] != '0.000000' ? number_format($row['CLPR1'], 2, '.', '') : '0')."</td>";
-                        echo "<td contenteditable='true' class='editable-cell-clpr2' data-anumb='" . $row['ANUMB'] . "'>".($row['CLPR2'] != '0.000000' ? number_format($row['CLPR2'], 2, '.', '') : '0')."</td>";
+                        echo "<td>".$row['CNAME']."</td>";
+                        echo "<td contenteditable='true' class='editable-cell' data-anumb='" . $row['ANUMB'] . "' data-clnum='"  . $row['CLNUM'] ."'>" . ($row['CLPRC'] != '0.000000' ? number_format($row['CLPRC'], 2, '.', '') : '0') . "</td>";
+                        echo "<td contenteditable='true' class='editable-cell-clpr1' data-anumb='" . $row['ANUMB'] . "' data-clnum='"  . $row['CLNUM'] ."'>" .($row['CLPR1'] != '0.000000' ? number_format($row['CLPR1'], 2, '.', '') : '0')."</td>";
+                        echo "<td contenteditable='true' class='editable-cell-clpr2' data-anumb='" . $row['ANUMB'] . "' data-clnum='"  . $row['CLNUM'] ."'>".($row['CLPR2'] != '0.000000' ? number_format($row['CLPR2'], 2, '.', '') : '0')."</td>";
                         echo "</tr>";
                     }
 

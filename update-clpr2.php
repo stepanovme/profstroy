@@ -73,13 +73,15 @@ try {
 
     // Получение данных из запроса
     $anumb = $_POST['anumb'];
+    $clnum = $_POST['clnum'];
     $newValue = $_POST['newValue'];
 
     // Выполнение SQL-скрипта обновления
-    $sql = "UPDATE ArtsVst SET CLPR2 = :newValue WHERE ANUMB = :anumb";
+    $sql = "UPDATE ArtsVst SET CLPR2 = :newValue WHERE ANUMB = :anumb AND CLNUM = :clnum";
     $stmt = $dbh->prepare($sql);
     $stmt->bindParam(':newValue', $newValue, PDO::PARAM_STR);
     $stmt->bindParam(':anumb', $anumb, PDO::PARAM_STR);
+    $stmt->bindParam(':clnum', $clnum, PDO::PARAM_STR);
     $stmt->execute();
 
     echo 'Данные успешно обновлены';
