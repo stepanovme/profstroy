@@ -600,7 +600,7 @@ document.getElementById('update-table').addEventListener('click', function() {
             }
 
             // После обновления базы данных перезагружаем страницу
-            // location.reload();
+            location.reload();
         };
         
         reader.readAsArrayBuffer(file);
