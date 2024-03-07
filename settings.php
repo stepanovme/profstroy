@@ -4,6 +4,7 @@ session_start();
 include 'db.php';
 header('Content-Type: text/html; charset=WIN1251');
 
+global $pathDB;
 // Проверяем, установлена ли сессия для пользователя
 if (!isset($_SESSION['userId'])) {
     // Если сессия не установлена, перенаправляем пользователя на страницу входа
@@ -16,11 +17,6 @@ $conn->set_charset("cp1251");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
-
-if (!isset($_SESSION['userId'])) {
-    header("Location: login.php");
-    exit;
 }
 
 $userId = $_SESSION['userId'];
@@ -49,6 +45,21 @@ $sql = "SELECT user.*, role.roleName
         WHERE user.userId = '$userId'";
 
 $result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // Получаем данные из результата запроса
+    $row = $result->fetch_assoc();
+    // Проверяем, что $row не равен null, прежде чем пытаться получить доступ к его элементам
+    if ($row !== null) {
+        // Извлекаем значение столбца pathBD и сохраняем его в глобальной переменной $pathDB
+        $pathDB = $row['pathBD'];
+    } else {
+        echo "Error: fetch_assoc returned null";
+    }
+} else {
+    echo "0 results";
+}
+
 ?>
 
 
@@ -94,11 +105,10 @@ $result = $conn->query($sql);
                         <p class="name"><?php echo $_SESSION['name'] . " " . $_SESSION['surname'];?></p>
                         <p class="role">
                         <?php
-                        if ($result->num_rows > 0) {
-                            $row = $result->fetch_assoc();
-                            echo $row['roleName'];
+                        if($_SESSION['roleId'] = 2){
+                            echo 'Администратор';
                         } else {
-                            echo "Пользователь не найден.";
+                            echo 'Пользователь';
                         }
                         ?>
                         </p>
@@ -115,12 +125,15 @@ $result = $conn->query($sql);
                         <div class="data">
                             <p>База данных:</p>
                             <div class="file-path">
-                                <p id="file-path-text">Путь</p>
+                                <p id="file-path-text"><?php echo $pathDB; ?></p>
                             </div>
                         </div>
                         <div class="buttons">
                             <form method="post" enctype="multipart/form-data">
-                                <input type="file" id="file-input" name="file">
+                                <label class="input-file">
+                                    <input type="file" name="file" id="file-input">
+                                    <span>Добавить файл</span>
+                                </label>
                                 <button id="submit-button" type="submit">Применить</button>
                             </form>
                         </div>
@@ -129,6 +142,7 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/js/settings.js"></script>
 </body>
 </html>

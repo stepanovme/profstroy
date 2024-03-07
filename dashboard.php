@@ -2,6 +2,7 @@
 session_start();
 
 include 'db.php';
+header('Content-Type: text/html; charset=WIN1251');
 
 // Объявляем переменную $pathDB глобальной
 global $pathDB;
@@ -9,7 +10,6 @@ global $pathDB;
 // Проверяем, установлена ли сессия для пользователя
 if (!isset($_SESSION['userId'])) {
     // Если сессия не установлена, перенаправляем пользователя на страницу входа
-    header('Content-Type: text/html; charset=WIN1251');
     header("Location: index.php");
     exit;
 }
@@ -19,11 +19,6 @@ $conn->set_charset("cp1251");
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
-
-if (!isset($_SESSION['userId'])) {
-    header("Location: login.php");
-    exit;
 }
 
 $userId = $_SESSION['userId'];
@@ -43,8 +38,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "0 results";
 }
-echo $pathDB;
-// Теперь переменная $pathDB доступна глобально
+
 ?>
 
 
@@ -71,7 +65,7 @@ echo $pathDB;
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/report.svg" alt="">
-                    <a href="index.php">Проекты</a>
+                    <a href="#">Проекты</a>
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/gear.svg" alt="">
@@ -88,12 +82,17 @@ echo $pathDB;
                         <p class="name"><?php echo $_SESSION['name'] . " " . $_SESSION['surname'];?></p>
                         <p class="role">
                         <?php
-                        if ($result->num_rows > 0) {
+                        if($_SESSION['roleId'] = 2){
+                            echo 'Администратор';
+                        } else {
+                            echo 'Пользователь';
+                        }
+                       /* if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
                             echo $row['roleName'];
                         } else {
                             echo "Пользователь не найден.";
-                        }
+                        } */
                         ?>
                         </p>
                     </div>

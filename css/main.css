@@ -581,3 +581,26 @@ select{
     border-radius: 100px;
     outline: none;
 }
+
+button#submit-button{
+    background-color: #59B077;
+    border: 0;
+    padding: 12px 0;
+    color: #FFFFFF;
+    min-width: 205px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .2s all;
+}
+
+button#submit-button:hover{
+    background-color: #4D9E69;
+}
+
+button#submit-button:active{
+    background-color: #478F60;
+}
+
+button#submit-button:focus{
+    background-color: #478F60;
+}
