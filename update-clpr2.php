@@ -76,12 +76,16 @@ try {
     $clnum = $_POST['clnum'];
     $newValue = $_POST['newValue'];
 
+    $newValue_cp1251 = iconv("UTF-8", "CP1251", $newValue);
+    $anumb_cp1251 = iconv("UTF-8", "CP1251", $anumb);
+    $clnum_cp1251 = iconv("UTF-8", "CP1251", $clnum);
+
     // Выполнение SQL-скрипта обновления
     $sql = "UPDATE ArtsVst SET CLPR2 = :newValue WHERE ANUMB = :anumb AND CLNUM = :clnum";
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':newValue', $newValue, PDO::PARAM_STR);
-    $stmt->bindParam(':anumb', $anumb, PDO::PARAM_STR);
-    $stmt->bindParam(':clnum', $clnum, PDO::PARAM_STR);
+    $stmt->bindParam(':newValue', $newValue_cp1251, PDO::PARAM_STR);
+    $stmt->bindParam(':anumb', $anumb_cp1251, PDO::PARAM_STR);
+    $stmt->bindParam(':clnum', $clnum_cp1251, PDO::PARAM_STR);
     $stmt->execute();
 
     echo 'Данные успешно обновлены';

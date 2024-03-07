@@ -440,11 +440,7 @@ function exportToExcel() {
     XLSX.writeFile(workbook, 'data.xlsx');
 }
 
-
-
-
-
-// Обработчик изминения данных в столбце CLPRV
+// Обработчик изминения данных в столбце CLPRC
 document.addEventListener('DOMContentLoaded', function() {
     const editableCells = document.querySelectorAll('.editable-cell');
 

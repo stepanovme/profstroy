@@ -65,23 +65,28 @@ $host = $pathDB;
 $username = 'SYSDBA';
 $password = 'masterkey';
 
+// Подключение к базе данных Firebird через PDO
+$dbh = new PDO("firebird:dbname=$host;charset=UTF8", $username, $password);
+
+// Установка режима ошибок PDO на исключения
+$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Получение данных из запроса
+$anumb = $_POST['anumb'];
+$clnum = $_POST['clnum'];
+$newValue = $_POST['newValue'];
+
+$newValue_cp1251 = iconv("UTF-8", "CP1251", $newValue);
+$anumb_cp1251 = iconv("UTF-8", "CP1251", $anumb);
+$clnum_cp1251 = iconv("UTF-8", "CP1251", $clnum);
+
 try {
-    // Подключение к базе данных Firebird через PDO
-    $dbh = new PDO("firebird:dbname=$host;charset=WIN1251", $username, $password);
-    // Установка режима ошибок PDO на исключения
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Получение данных из запроса
-    $anumb = $_POST['anumb'];
-    $clnum = $_POST['clnum'];
-    $newValue = $_POST['newValue'];
-
-    // Выполнение SQL-скрипта обновления
-    $sql = "UPDATE ArtsVst SET CLPRC = :newValue WHERE ANUMB = :anumb AND CLNUM = :clnum";
+    // Выполнение SQL-скрипта обновления с использованием подготовленного запроса
+    $sql = "UPDATE ArtsVst SET CLPRC = :newValue WHERE ANUMB = :anumb AND CLNUM = :clnum;";
     $stmt = $dbh->prepare($sql);
-    $stmt->bindParam(':newValue', $newValue, PDO::PARAM_STR);
-    $stmt->bindParam(':anumb', $anumb, PDO::PARAM_STR);
-    $stmt->bindParam(':clnum', $clnum, PDO::PARAM_STR);
+    $stmt->bindParam(':newValue', $newValue_cp1251, PDO::PARAM_STR);
+    $stmt->bindParam(':anumb', $anumb_cp1251, PDO::PARAM_STR);
+    $stmt->bindParam(':clnum', $clnum_cp1251, PDO::PARAM_STR);
     $stmt->execute();
 
     echo 'Данные успешно обновлены';
@@ -89,4 +94,6 @@ try {
     // В случае ошибки выводим сообщение
     echo "Ошибка выполнения запроса: " . $e->getMessage();
 }
+
+
 ?>

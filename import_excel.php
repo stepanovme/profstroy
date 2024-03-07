@@ -68,13 +68,18 @@ try {
     $dbh = new PDO("firebird:dbname=$host;charset=WIN1251", $username, $password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $anumb = $_POST['anumb'];
-    $clprc = $_POST['clprc'];
-    $clpr1 = $_POST['clpr1'];
-    $clpr2 = $_POST['clpr2'];
+    // Получаем значение CNAME из POST-запроса
+    $cname = $_POST['cname'];
 
-    $stmt = $dbh->prepare("UPDATE ArtsVst SET CLPRC = ?, CLPR1 = ?, CLPR2 = ? WHERE ANUMB = ?");
-    $stmt->execute([$clprc, $clpr1, $clpr2, $anumb]);
+    // Находим соответствующий CNUMB по CNAME в таблице ColsLst
+    $stmt = $dbh->prepare("SELECT CNUMB FROM ColsLst WHERE CNAME = ?");
+    $stmt->execute([$cname]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $cnumb = $row['CNUMB'];
+
+    // Обновляем данные в таблице ArtsVst, где CLNUM = найденному CNUMB
+    $stmt = $dbh->prepare("UPDATE ArtsVst SET CLPRC = ?, CLPR1 = ?, CLPR2 = ? WHERE CLNUM = ?");
+    $stmt->execute([$clprc, $clpr1, $clpr2, $cnumb]);
 
     echo "success";
 } catch (PDOException $e) {
