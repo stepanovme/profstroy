@@ -88,7 +88,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="nav-link">
                     <img src="/assets/icons/report.svg" alt="">
-                    <a href="#">Проекты</a>
+                    <a href="project.php">Проекты</a>
                 </div>
                 <div class="nav-link active">
                     <img src="/assets/icons/gear.svg" alt="">
